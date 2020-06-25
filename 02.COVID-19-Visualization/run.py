@@ -7,6 +7,11 @@
 # Description: 基于Python Flask Web实现的疫情数据可视化平台
 # Question:
 
+
+# 使用绝对路径导入
+import sys,os
+sys.path.append(os.path.dirname(__file__) + os.sep + '../')
+# 报错可忽略
 from Covid19_data_get import getForeignData, getChinaData, getProvinceData
 from pyecharts.charts import Bar, Line, Map, Pie
 import pyecharts.options as opts
