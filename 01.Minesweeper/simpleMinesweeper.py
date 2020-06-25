@@ -72,8 +72,10 @@ def click(event):
     x = event.y // 50
     y = event.x // 50
 
-    # 判断获胜条件：检查show数组中"-"的个数，如果为0，即可判赢（存在bug）
-    if sum([row.count("-") for row in show]) == 0 and sum([row.count("F") for row in show]) == 9:
+    # 判断获胜条件：检查show数组中"-"、“F”、“?”三者的个数，即可判赢（是否存在bug？）
+    if sum([row.count("-") for row in show]) == 0 \
+            and sum([row.count("F") for row in show]) == 9 \
+            and sum([row.count("?") for row in show]) == 0:
         showinfo("WIN", "You Win!")
         # 判断结束，通知结束，窗口摧毁
         window.destroy()
@@ -84,7 +86,7 @@ def click(event):
     # 如果无输赢情况，则要修改棋盘当前显示的局面，核心是更新底层的show数组
     else:
         # 这里我们分两种情况
-        # 1. 点击处周围8个格子不存在雷
+        # 1. 点击处为0（即周围8个格子不存在雷），则消除在整个棋盘上所有为0的格子，并显示其周围8个格子的情况
         if board[x][y] == 0:
             for i in range(9):
                 for j in range(9):
@@ -121,7 +123,6 @@ def mark(event):
 # 将鼠标左右键click动作绑定函数
 canvas.bind_all("<Button-1>", click)
 canvas.bind_all("<Button-3>", mark)
-
 
 initBoard()
 showBoard()
