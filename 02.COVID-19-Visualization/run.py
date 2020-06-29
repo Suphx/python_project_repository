@@ -59,7 +59,7 @@ def line_base():
             .add_yaxis('输入病例', china_importedCase, is_symbol_show=True, label_opts=opts.LabelOpts(is_show=False),
                        markpoint_opts=opts.MarkPointOpts(data=[opts.MarkPointItem(type_="max")]))
             .set_global_opts(title_opts=opts.TitleOpts(title="国内疫情走势", subtitle="数据来源：腾讯新闻"),
-                             yaxis_opts=opts.AxisOpts(axislabel_opts=opts.LabelOpts(font_size=10, interval=3)))
+                             yaxis_opts=opts.AxisOpts(axislabel_opts=opts.LabelOpts(font_size=7, interval=3)))
     )
     return chinaLine
 
@@ -68,10 +68,11 @@ def map_base():
     chinaMap = (
         Map()
             # .add("累计确诊", maptype="world")
-            .add("累计确诊", [list(z) for z in zip(province_name, province_total_confirm)], maptype="china")
+            .add("累计确诊", [list(z) for z in zip(province_name, province_total_confirm)], maptype="china", is_roam=True)
             .set_global_opts(
             title_opts=opts.TitleOpts(title="中国累计确诊数据"),
-            visualmap_opts=opts.VisualMapOpts(is_piecewise=True,
+            visualmap_opts=opts.VisualMapOpts(max_=3600,
+                                              is_piecewise=True,
                                               pieces=[{"max": 0, "label": '0人'}, {"min": 1, "max": 9, "label": '1-9人'},
                                                       {"min": 10, "max": 99, "label": '10-99人'},
                                                       {"min": 100, "max": 499, "label": '100-499人'},
