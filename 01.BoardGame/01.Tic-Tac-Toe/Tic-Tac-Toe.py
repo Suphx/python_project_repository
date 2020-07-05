@@ -21,8 +21,14 @@ steps = 0  # 记录步数，用于判别下棋方
 
 
 window = Tk()  # 创建一个TK窗口对象
-window.title("Tic-Tac-Toe")
+window.title("Tic-Tac-Toe")  #
 canvas = Canvas(window, width=300, height=300)  # 利用窗口对象创建画布
+
+# 创建3x3网格
+canvas.create_line(0, 100, 300, 100)
+canvas.create_line(0, 200, 300, 200)
+canvas.create_line(100, 0, 100, 300)
+canvas.create_line(200, 0, 200, 300)
 
 
 # 自定义handler函数，绑定鼠标左键下棋逻辑
@@ -35,9 +41,11 @@ def nextStep(event):
     j = event.y // 100
 
     if board[i][j] == 0:
+        # 模拟下棋动作
         board[i][j] = players[steps % 2]
         canvas.create_text(i * 100 + 50, j * 100 + 50, text=show[steps % 2])
 
+        #
         winner = None
         for i in range(3):
             if (sum(board[i]) in [-3, 3]) or (board[0][i] + board[1][i] + board[2][i] in [-3, 3]):
@@ -57,9 +65,5 @@ def nextStep(event):
 canvas.pack()
 canvas.bind("<Button-1>", nextStep)
 
-canvas.create_line(0, 100, 300, 100)
-canvas.create_line(0, 200, 300, 200)
-canvas.create_line(100, 0, 100, 300)
-canvas.create_line(200, 0, 200, 300)
-
 window.mainloop()
+

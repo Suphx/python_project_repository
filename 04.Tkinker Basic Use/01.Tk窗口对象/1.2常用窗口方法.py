@@ -13,7 +13,7 @@ window = Tk()  # 创建Tkinter窗口对象
 
 window.title("1.2常用窗口方法")  # 设置窗体的标题栏名称
 window.geometry('380x300')  # 设置窗体大小（固定语法: widthxheight）
-window.resizabl.resizable(width=False, height=True)  # 限制窗口可调整大小范围
+window.resizable(width=False, height=True)  # 限制窗口可调整大小范围
 
 window.mainloop()  # 进入窗口循环
 
