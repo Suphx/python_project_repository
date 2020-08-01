@@ -6,8 +6,6 @@ import collections
 class getCovidData(object):
 
     def __init__(self):
-
-
         # 全国疫情数据
         self.chinatotal_url = 'https://view.inews.qq.com/g2/getOnsInfo?name=disease_other'
         self.chinatotal_h5_url = "https://view.inews.qq.com/g2/getOnsInfo?name=disease_h5"

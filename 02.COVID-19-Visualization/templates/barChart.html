@@ -71,19 +71,26 @@
                 <div id="page-content">
                     <div id="chart" style="width:1500px; height:800px;margin: auto"></div>
                     <script>
+                        var chart = echarts.init(document.getElementById('chart'), 'white', {renderer: 'canvas'});
+
                         $(
                             function () {
-                                var chart = echarts.init(document.getElementById('chart'), 'white', {renderer: 'canvas'});
-                                $.ajax({
-                                    type: "GET",
-                                    url: "http://localhost:776/barChart",
-                                    dataType: 'json',
-                                    success: function (result) {
-                                        chart.setOption(result);
-                                    }
-                                });
+                                fetchDate(chart);
+                                setInterval(fetchDate, 2000);
                             }
-                        )
+                        );
+
+                        function fetchDate() {
+                            $.ajax({
+                                type: "GET",
+                                url: "http://localhost:776/barChart",
+                                dataType: 'json',
+                                success: function (result) {
+                                    chart.setOption(result);
+                                }
+                            });
+                        }
+
                     </script>
                 </div>
             </div>

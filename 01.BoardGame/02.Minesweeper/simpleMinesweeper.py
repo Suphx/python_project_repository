@@ -17,7 +17,7 @@ from tkinter.messagebox import *
 # show是扫雷核心之一，底层维护的是一个二维数组，用于触发click以后刷新棋盘显示以及胜负判定
 # window初始化的是我们用tkinter创建的一个窗口
 # canvas初始化的是我们tkinter的Canvas模块创建的一个画布
-global window, canvas, board, show
+global board, show
 board = [[0 for j in range(9)] for i in range(9)]
 show = [["-" for j in range(9)] for i in range(9)]
 window = Tk()
@@ -31,7 +31,7 @@ window.resizable(0, 0)  # 特别注意，由于我们利用click的坐标修改�
 # 初始化一个棋盘，底层维护一个二维数组board，随机生成雷的位置
 def initBoard():
     # 初始化10颗雷，数字“9”代表雷
-    for i in range(15):
+    for i in range(5):
         x = random.randint(0, 8)
         y = random.randint(0, 8)
         while board[x][y] != 0:
@@ -68,8 +68,11 @@ def showBoard():
 # 判断胜利
 def judge():
     # 判断获胜条件：检查show数组中"-"、“F”、“?”三者的个数，即可判赢（是否存在bug？）
+    print(sum([row.count("-") for row in show]))
+    print(sum([row.count("F") for row in show]))
+    print(sum([row.count("?") for row in show]))
     if sum([row.count("-") for row in show]) == 0 \
-            and sum([row.count("F") for row in show]) == 9 \
+            and sum([row.count("F") for row in show]) == 5 \
             and sum([row.count("?") for row in show]) == 0:
         showinfo("WIN", "You Win!")
         # 判断结束，通知结束，窗口摧毁
@@ -94,8 +97,6 @@ def click(event):
     # click中的event属性包含点击窗口的坐标位置，我们会利用这个值，做数组修改或数据判断
     x = event.y // 50
     y = event.x // 50
-
-    judge()
     if board[x][y] == 9:
         showinfo("LOSE", "BOMB! You Lose!")
         # 判断结束，通知结束，窗口摧毁
@@ -120,9 +121,9 @@ def mark(event):
         show[x][y] = "?"
     elif show[x][y] == "?":
         show[x][y] = "-"
-    elif show[x][y] in relu:
-        show[x][y] = show[x][y]
+    # en 
     showBoard()
+    judge()
 
 
 # 将鼠标左右键click动作绑定函数

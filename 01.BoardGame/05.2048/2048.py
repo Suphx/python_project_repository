@@ -365,7 +365,7 @@ def main():
         reset()
         update_ui()
 
-    restart_button = Button(frame, text='重新开始', font=("黑体", 16, "bold"),
+    restart_button = Button(frame, text='重新开始', font=("黑体", 12, "bold"),
                             bg="#8f7a66", fg="#f9f6f2", command=reset_game)
     restart_button.grid(row=4, column=3, padx=5, pady=5)
 

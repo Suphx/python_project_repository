@@ -1,0 +1,69 @@
+#!/bin/usr/env python3
+# -*- coding: utf-8 -*-
+# -------------------------------
+# Author: SuphxLin
+# CreateTime: 2020/08/01 12:47
+# FileName: 07.身高正态分布可视化
+# Description: 
+# Question:
+from numpy import array
+from numpy.random import normal
+import matplotlib as mpl
+# 防止中文乱码，将字体设置为华文黑体
+mpl.rcParams['font.sans-serif'] = ['SimHei']
+
+
+def genData():
+    heights = []
+    weights = []
+    N = 100000
+
+    for i in range(N):
+        # 身高服从均值172，标准差为6的正态分布
+        height = normal(172, 6)
+        # 体重由身高作为自变量的线性回归模型产生，误差服从标准正态分布
+        weight = (height - 80) * 0.7 + normal(0, 1)
+
+        heights.append(height)
+        weights.append(weight)
+    return array(heights), array(weights)
+
+
+heights, weights = genData()
+print(heights)
+print(weights)
+
+from matplotlib import pyplot
+
+
+# 绘制直方图
+def drawHist(values, xlabel, ylabel, title):
+    # 创建直方图
+    # 第一个参数为待绘制的定量数据，不同于定性数据，这里并没有事先进行频数统计
+    # 第二个参数为划分的区间个数
+    pyplot.hist(values, 150)
+    pyplot.xlabel('身高')
+    pyplot.ylabel('频数')
+    pyplot.title('成年男性身高分布图（均值为172，标准差为6）')
+    pyplot.show()
+
+
+heightsXlabel = '身高'
+heightsYlabel = '频数'
+heightsTitle = '成年男性身高分布图（均值为172，标准差为6）'
+drawHist(heights, heightsXlabel, heightsYlabel, heightsTitle)
+
+
+# 绘制散点图
+def drawScatter(heights, weights):
+    # 创建散点图
+    # 第一个参数为点的横坐标
+    # 第二个参数为点的纵坐标
+    pyplot.scatter(heights, weights)
+    pyplot.xlabel('Heights')
+    pyplot.ylabel('Weights')
+    pyplot.title('Heights & Weights Of Male Students')
+    pyplot.show()
+
+
+drawScatter(heights, weights)
