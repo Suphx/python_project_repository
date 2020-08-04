@@ -8,7 +8,6 @@
 # Question:
 
 import matplotlib.pyplot as plt
-import numpy as np
 
 import matplotlib as mpl
 # 防止中文乱码，将字体设置为华文黑体
